@@ -3,10 +3,13 @@
 <title>Voice Tag Demo</title>
 </head>
 <body>
+<script type="text/javascript">
+
+function onSpeechChange() {
+alert(document.getElementById("speechInput").value);
+}
+</script>
 <h1>Voice Tag Demo</h1>
-<form method="post">
-<input type="text" id="vcInp1" x-webkit-speech>
-  </form>
+<input id='speechInput' x-webkit-speech onwebkitspeechchange="onSpeechChange()">
 </body>
 </html>
-
