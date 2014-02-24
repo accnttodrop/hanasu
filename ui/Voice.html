@@ -6,20 +6,34 @@
 <body>
 <script type="text/javascript">
 
+function processData(inpVal,fn) {
+$.get("wit", {msg: inpVal}, function(data) {
+var result = $.parseJSON(data);
+var entities = result.outcome.entities;
+var response = "For " + entities.TradingEntity.value +" in the time between "+
+(new Date(entities.datetime.value.from)).toDateString()+" and "+(new Date(entities.datetime.value.to)).toDateString()+" please tell me the "+entities.TimeSeriesEntity.value;
+fn(response);
+});
+}
+
 function onSpeechChange() {
-alert(document.getElementById("speechInput").value);
+var inpVal = document.getElementById("speechInput").value;
+var response = processData(inpVal,
+function(data) {
+alert(data);
+});
 }
 
 function onTextChange(){
 var inpVal = document.getElementById("textInput").value;
-$.get("wit", {msg: inpVal}, function(data) {
+var response = processData(inpVal,function(data) {
 alert(data);
 });
 }
 
 </script>
 <h1>Voice Tag Demo</h1>
-<input id='speechInput' x-webkit-speech onwebkitspeechchange="onSpeechChange()">
+<input id='speechInput' x-webkit-speech  onchange="onTextChange()"  onwebkitspeechchange="onSpeechChange()">
 <input id='textInput' onchange="onTextChange()">
 </body>
 </html>
