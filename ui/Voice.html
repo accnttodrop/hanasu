@@ -1,6 +1,7 @@
 <html>
   <head>
 <title>Voice Tag Demo</title>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 </head>
 <body>
 <script type="text/javascript">
@@ -8,8 +9,17 @@
 function onSpeechChange() {
 alert(document.getElementById("speechInput").value);
 }
+
+function onTextChange(){
+var inpVal = document.getElementById("textInput").value;
+$.get("wit", {msg: inpVal}, function(data) {
+alert(data);
+});
+}
+
 </script>
 <h1>Voice Tag Demo</h1>
 <input id='speechInput' x-webkit-speech onwebkitspeechchange="onSpeechChange()">
+<input id='textInput' onchange="onTextChange()">
 </body>
 </html>
